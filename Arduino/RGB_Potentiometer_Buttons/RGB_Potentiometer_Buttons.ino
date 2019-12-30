@@ -15,8 +15,8 @@ unsigned long First_time;
 unsigned long Second_time;
 
 //##################################################
-void SelectColor (int Red, int Green, int Blue)
-{ analogWrite(RED_LED, Red);
+void SelectColor (int Red, int Green, int Blue) { 
+  analogWrite(RED_LED, Red);
   analogWrite(GREEN_LED, Green);
   analogWrite(BLUE_LED, Blue);
 }
@@ -65,7 +65,6 @@ void loop() {
     analogWrite(RED_LED, LOW);
     analogWrite(GREEN_LED, LOW);
     analogWrite(BLUE_LED, LOW);
-
   }
 //--------------------------------------------------
   if (Mode == 1) //RGB adjustable
