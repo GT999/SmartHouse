@@ -1,18 +1,24 @@
-//#define BUTTON_SWITCH 2
+#include <DHT11.h>
+
+#define BUTTON_SWITCH 8 //2
 //#define RGB_ENCODER 3
 
 #define RGB_RED_LED 11
 #define RGB_GREEN_LED 10
 #define RGB_BLUE_LED 9
 
-#define LDR_SENSOR A0
+#define LDR_SENSOR A2 //A0
 
 
+int temperature = 0;
+int humidity = 0;
+float illumination;
+
+uint32_t timeCheck = 0;
+uint32_t time_check = 0;
 const int disco = 1000;
 
-uint32_t time_check = 0;
-bool OnOff = false;
-
+bool OnOff = true;
 
 enum LightMode {
   SINGLE_COLOR,
@@ -20,10 +26,12 @@ enum LightMode {
   DISCO
 };
 
-enum LightMode lightMode = SINGLE_COLOR;
+enum LightMode lightMode = AMBIENT;
 
 
 void setup() {
+  Serial.begin(9600);
+
   pinMode(BUTTON_SWITCH, INPUT_PULLUP);
   pinMode(RGB_RED_LED, OUTPUT);
   pinMode(RGB_GREEN_LED, OUTPUT);
@@ -31,7 +39,7 @@ void setup() {
 
   attachInterrupt(digitalPinToInterrupt(BUTTON_SWITCH), buttonPressed, FALLING);
 }
-void buttonPressed(){
+void buttonPressed() {
   OnOff = !OnOff;
 }
 
@@ -47,7 +55,7 @@ void loop() {
 
 
 /*
-void lightState(bool isOn) {
+  void lightState(bool isOn) {
   if (isOn) {
     lightModes();
   } else {
@@ -56,9 +64,9 @@ void lightState(bool isOn) {
     analogWrite(RGB_GREEN_LED, LOW);
     analogWrite(RGB_BLUE_LED, LOW);
   }
-}
+  }
 
-void lightModes() {
+  void lightModes() {
   switch (lightMode) {
 
     //can be used to chancge to any color
@@ -77,21 +85,21 @@ void lightModes() {
       break;
 
   }
-}
+  }
 
-void singleColorMode() {
+  void singleColorMode() {
   SelectColor (255, 255, 255);
-}
+  }
 
-void ambientMode() {
+  void ambientMode() {
   //read the ldr and other sensors
 
 
 
   //execute the actual rgb led code
-}
+  }
 
-void discoMode() {
+  void discoMode() {
   if (millis() - time_check > disco)
   {
     SelectColor (255, 0, 0); //Red }
@@ -113,5 +121,5 @@ void discoMode() {
       time_check = millis();
     }
   }
-}
+  }
 */
